@@ -42,14 +42,17 @@ public class App
 //        System.out.println(car2.engine);
 ////        System.out.println(car2.getName());
 //
-        Engine engine = new Engine();
-        engine.setManufacturer("Mercedes");
-        Vehicle hybridCar = new Car(engine);
-        hybridCar.setName("Prius");
-        hybridCar.setFuelLevel(60);
-        hybridCar.setMaxSpeed(200);
-        hybridCar.setMileage(30);
-        hybridCar.accelerate(100,1);
+//        Engine engine = new Engine();
+//        engine.setManufacturer("Mercedes");
+//        Vehicle hybridCar = new Car(engine);
+//        hybridCar.setName("Prius");
+//        hybridCar.setFuelLevel(60);
+//        hybridCar.setMaxSpeed(200);
+//        hybridCar.setMileage(30);
+//        hybridCar.accelerate(100,1);
 //        System.out.println(hybridCar);
+
+        Game game = new Game();
+        game.start();
     }
 }
