@@ -44,11 +44,12 @@ public class App
 //
         Engine engine = new Engine();
         engine.setManufacturer("Mercedes");
-        Vehicle hybridCar = new HybridCar(engine);
+        Vehicle hybridCar = new Car(engine);
         hybridCar.setName("Prius");
         hybridCar.setFuelLevel(60);
+        hybridCar.setMaxSpeed(200);
+        hybridCar.setMileage(30);
         hybridCar.accelerate(100,1);
-        System.out.println(hybridCar);
-        ((HybridCar) hybridCar).fly();
+//        System.out.println(hybridCar);
     }
 }
