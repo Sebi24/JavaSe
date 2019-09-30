@@ -21,11 +21,23 @@ public class Game {
 
         initializeCompetitors();
 
-        for (Vehicle vehicle:competitors){
-            double speed = getAccelerationSpeedFromUser();
-            vehicle.accelerate(speed,1);
-        }
+        boolean winnerNotKnown = true;
+        int competitorsWithoutFuel = 0;
 
+        while(winnerNotKnown && competitorsWithoutFuel < competitors.size()){
+            for (Vehicle vehicle:competitors){
+                double speed = getAccelerationSpeedFromUser();
+                vehicle.accelerate(speed,1);
+                if(selectedTrack.getLenght() <= vehicle.getTraveledDistance()) {
+                    winnerNotKnown = false;
+                    System.out.println("The winner is: " + vehicle.getName());
+                    break;
+                }
+                if(vehicle.getFuelLevel() <= 0){
+                    competitorsWithoutFuel ++;
+                }
+            }
+        }
     }
 
     private double getAccelerationSpeedFromUser(){
@@ -91,7 +103,7 @@ public class Game {
 
         Track track2 = new Track();
         track2.setName("Second Track");
-        track2.setLenght(500);
+        track2.setLenght(10000);
         tracks[1] = track2;
 
 //        Track track3 = new Track();
