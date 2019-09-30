@@ -1,7 +1,9 @@
 package org.fasttrackit;
 
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.List;
+import java.util.Scanner;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class Game {
@@ -11,15 +13,63 @@ public class Game {
     private Track[] tracks = new Track[3];
     private List<Vehicle> competitors = new ArrayList<>();
 
-    public void start(){
+    public void start() throws Exception {
         initializeTracks();
         displayTracks();
+
+        Track selectedTrack = getSelectedTrackFromUser();
+
         initializeCompetitors();
 
+        for (Vehicle vehicle:competitors){
+            double speed = getAccelerationSpeedFromUser();
+            vehicle.accelerate(speed,1);
+        }
 
     }
-    public void initializeCompetitors(){
-        int competitorCount = 2;
+
+    private double getAccelerationSpeedFromUser(){
+        System.out.println("Please enter acceleration speed: ");
+        Scanner scanner = new Scanner(System.in);
+
+        try{
+            return scanner.nextDouble();
+        }
+        catch (InputMismatchException e){
+            System.out.println("Please enter a valid value!");
+            return getAccelerationSpeedFromUser();
+        }
+    }
+
+    private int getCompetitorCountFromUser() throws Exception{
+        System.out.println("Please enter number of players: ");
+        Scanner scanner = new Scanner(System.in);
+        try{
+            return scanner.nextInt();
+        }
+        catch (InputMismatchException e){
+            throw new Exception("You have entered an invalid number!");
+        }
+    }
+
+    private Track getSelectedTrackFromUser(){
+        System.out.println("Select a track: ");
+        Scanner scanner = new Scanner(System.in);
+
+        int userChoice;
+
+        try{
+            userChoice = scanner.nextInt();
+        }
+        catch (InputMismatchException | ArrayIndexOutOfBoundsException e){
+            System.out.println("You have entered an invalid value. \n Please enter a valid number: ");
+            return getSelectedTrackFromUser();
+        }
+        return tracks[userChoice - 1];
+    }
+
+    public void initializeCompetitors() throws Exception {
+        int competitorCount = getCompetitorCountFromUser();
         System.out.println("Today's competitors are: ");
         for(int i = 0; i < competitorCount;i++){
             Vehicle competitor = new Vehicle();
